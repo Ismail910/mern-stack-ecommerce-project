@@ -1,5 +1,5 @@
 const {validationResult} = require("express-validator")
-const {hashedPassword , createToken} = require("../../services/authServices");
+const {hashedPassword , createToken ,comparaPassword} = require("../../services/authServices");
 const UserModel = require('../../models/user')
 
 
@@ -31,5 +31,41 @@ module.exports.register = async (req, res)=>{
         }
     }else{
      return res.status(400).json({errors: errors.array()})
+    }
+ }
+
+
+ module.exports.login = async  (req,res)=>{
+    const { email , password} = req.body;
+    const errors = validationResult(req);
+    if (errors.isEmpty) {
+        try {
+            const user = await UserModel.findOne({email})
+
+            if (user) {
+                
+                if(await comparaPassword(password , user.password)){
+                    const token =  createToken({id:user._id, name:user.name})
+                    if (user.admin) {
+                        return res.status(201).json({token ,admin: true} )
+                    }else{
+                        return res.status(201).json({token , admin : false})
+
+                    }
+                }else{
+                    return res.status(401).json({errors: [{mas: 'password not matched'}
+                ]})
+                }
+            }else{
+                return res.status(401).json({errors: [{'msg': `${email} is not found!`}]})
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        return res.status(500).json(`server internal error`)
+            
+        }
+    }else{
+         res.status(401).json({errors: errors.array()})
     }
  }

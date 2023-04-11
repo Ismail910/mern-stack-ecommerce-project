@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 //validation ;;
-const {registerValidations} = require("../validations/userValidation")
+const {registerValidations , loginValidations} = require("../validations/userValidation")
 // controller;;
-const {register} = require("../controllers/users/userController");
+const {register, login} = require("../controllers/users/userController");
 
 
 
@@ -14,6 +14,7 @@ const {register} = require("../controllers/users/userController");
 router.post("/register", registerValidations, register);
 
   
+router.post('/login',loginValidations, login);
 
 
 

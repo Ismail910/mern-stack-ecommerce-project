@@ -13,3 +13,6 @@ module.exports.createToken = (user)=>{
         expiresIn:'10d'
        })
 }
+module.exports.comparaPassword = async (password , dbpassword)=>{
+    return await bcrypt.compare(password, dbpassword)
+}
