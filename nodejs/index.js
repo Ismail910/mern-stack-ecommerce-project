@@ -3,17 +3,24 @@ const env = require("./config/envConfig")
 const app = express();
 const port = env.PORT || 3000 ;
 const connect = require('./config/db');
-
+const cors = require("cors");
  
+
+
 // add middleware 
 app.use(express.json());
 
+
+app.use(cors());
+
 // start routes
+
 
 const userRoutes = require('./routes/userRoutes');
 
  
 app.use('/api', userRoutes );
+
 
 
 // app.get("/", (req , res)=>{

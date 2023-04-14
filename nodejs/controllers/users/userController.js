@@ -38,6 +38,8 @@ module.exports.register = async (req, res)=>{
  module.exports.login = async  (req,res)=>{
     const { email , password} = req.body;
     const errors = validationResult(req);
+   
+    
     if (errors.isEmpty) {
         try {
             const user = await UserModel.findOne({email})
@@ -61,11 +63,10 @@ module.exports.register = async (req, res)=>{
             }
 
         } catch (error) {
-            console.log(error.message);
         return res.status(500).json(`server internal error`)
             
         }
     }else{
-         res.status(401).json({errors: errors.array()})
+        return res.status(401).json({errors: errors.array()})
     }
  }
