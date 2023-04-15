@@ -26,7 +26,7 @@ module.exports.register = async (req, res)=>{
                 return res.status(401).json({errors:[{mas: `${email} is already taken`}]}) ;
             }
         }catch(error){
-            console.log(error.message);
+            
             return res.status(500).json("Server inernal error!");
         }
     }else{
@@ -55,11 +55,10 @@ module.exports.register = async (req, res)=>{
 
                     }
                 }else{
-                    return res.status(401).json({errors: [{mas: 'password not matched'}
-                ]})
+                    return res.status(401).json({errors: [{msg: 'password not matched'}]})
                 }
             }else{
-                return res.status(401).json({errors: [{'msg': `${email} is not found!`}]})
+                return res.status(401).json({errors: [{msg: `${email} is not found!`}]})
             }
 
         } catch (error) {

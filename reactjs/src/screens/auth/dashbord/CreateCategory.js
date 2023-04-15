@@ -1,21 +1,40 @@
 import ScreenHeader from "../../../components/ScreenHeader";
 import Wrapper from "./Wrapper";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useCreateMutation } from "../../../store/services/categoryService";
 const CreateCategory = () =>{
+  const [state , setState] = useState();
+  const [saveCategory, data] = useCreateMutation();
+  console.log(data);
+ const errors = data?.error?.data?.errors ?  data?.error?.data?.errors : [];
+  const submitCategory = e =>{
+    e.preventDefault();
+    saveCategory({name: state});
+  }
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if(data?.isSuccess){
+      navigate('/dashboard/categories');
+    }
+  },[data?.isSuccess])
     return (
       <Wrapper >
            <ScreenHeader>
-            <Link to="/dashboard/categories" className="btn-dark"> <i class="bi bi-arrow-left-short"></i> categories list  </Link>
+            <Link to="/dashboard/categories" className="btn-dark"> <i className="bi bi-arrow-left-short"></i> categories list  </Link>
 
            </ScreenHeader>
-           <form className="w-full md-w-8/12 ">
+           <form className="w-full md-w-8/12 " onSubmit={submitCategory}>
             <h3 className="text-lg capitalize mb-3 "> create category</h3>
+            {errors.length > 0 &&  errors.map((error, key) =>(
+              <p className="alert-danger" key={key}>{error.msg}</p>
+            ))}
             <div className="md-3">
-                 <input type="text" name="" className="bg-gray-900 p-3 rounded-sm outline-none w-full" placeholder="Category Name..." />
+                 <input type="text" name="" className="bg-gray-900 p-3 rounded-sm outline-none w-full" placeholder="Category Name..." value={state} onChange={(e)=> setState(e.target.value)}/>
             </div>
             <div className="md-3 ">
                 <input type="submit"  
-                class='bg-indigo-600 text-white capitalize font-medium px-4 py-3' value="create category"/>
+                className='bg-indigo-600 text-white capitalize font-medium px-4 py-3 cursor-pointer' value={data.isLoading ?  'loading...': 'create category' }/>
             </div>
            
            </form>

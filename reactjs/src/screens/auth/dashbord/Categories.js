@@ -5,7 +5,7 @@ const Categories = () =>{
     return (
       <Wrapper >
            <ScreenHeader>
-            <Link to="/dashboard/create-category" className="btn-dark">add categorie <i class="bi bi-plus"></i> </Link>
+            <Link to="/dashboard/create-category" className="btn-dark">add categorie <i className="bi bi-plus"></i> </Link>
 
            </ScreenHeader>
       </Wrapper>

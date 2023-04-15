@@ -15,7 +15,7 @@ class Category {
             return res.status(201).json({massage: 'catalogue has created successfully'})
 
            }else{
-            return res.status(401).json({errors: `${name} category is already exist!`   });
+            return res.status(401).json({errors: [{msg: `${name} category is already exist!`}]});
            }
           
 
