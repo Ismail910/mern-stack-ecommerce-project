@@ -17,15 +17,12 @@ app.use(cors());
 
 
 const userRoutes = require('./routes/userRoutes');
-
+const categoryRoutes = require('./routes/categoryRoutes');
  
 app.use('/api', userRoutes );
+app.use('/api', categoryRoutes);
 
 
-
-// app.get("/", (req , res)=>{
-//     res.json({msg: `welcome to my project`});
-// });
 
 
 

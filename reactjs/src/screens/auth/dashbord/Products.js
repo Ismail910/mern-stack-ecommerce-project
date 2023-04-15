@@ -1,18 +1,16 @@
-import Sidebar from "../../../components/Sidebar";
-import AdminNav from "../../../components/AdminNev";
+import Wrapper from "./Wrapper";
 
 const Products = () =>{
     return (
-       <>
-       <Sidebar />
-       <AdminNav />
-       <section className="ml-64 bg-gray-900 min-h-screen pt-28 px-4">
-        <div className="bg-gray-800 text-white p-4">
-            lorem ipsum dolor sit amet, consectetur adip
-        </div>
+      <Wrapper >
+             lorem ipsum dolor sit amet, consectetur adip
+             elit, sed do eiusmod tempor incididunt ut labore et
+             dolore magna aliqua. Ut enim ad minim veniam, quis
+             nostrud exercitation ullamco laboris nisi ut aliquip
+             ex ea commodo consequat. Duis aute irure dolor in
+            REprehenderit in voluptate velit esse cillum dolore eu
 
-       </section>
-       </>
+      </Wrapper>
     )
     
 }
