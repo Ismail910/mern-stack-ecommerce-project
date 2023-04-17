@@ -18,7 +18,6 @@ class Category {
             return res.status(401).json({errors: [{msg: `${name} category is already exist!`}]});
            }
           
-
         } else {
             console.log(errors.array());
             return res.status(401).json({errors: errors.array()});

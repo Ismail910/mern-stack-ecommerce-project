@@ -2,19 +2,25 @@ import ScreenHeader from "../../../components/ScreenHeader";
 import Wrapper from "./Wrapper";
 import { Link , useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useCreateMutation } from "../../../store/services/categoryService";
+import { setSuccess } from "../../../store/reducers/globalReducer";
+
 const CreateCategory = () =>{
   const [state , setState] = useState();
   const [saveCategory, data] = useCreateMutation();
-  console.log(data);
+  // console.log(data);
+
  const errors = data?.error?.data?.errors ?  data?.error?.data?.errors : [];
   const submitCategory = e =>{
     e.preventDefault();
     saveCategory({name: state});
   }
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(()=>{
     if(data?.isSuccess){
+      dispatch(setSuccess(data?.data?.massage));
       navigate('/dashboard/categories');
     }
   },[data?.isSuccess])
