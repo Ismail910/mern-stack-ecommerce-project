@@ -8,4 +8,6 @@ const Category = require('../controllers/Category');
 
 router.post('/create-category', [categoryValidation, Authorization.authorized], Category.create);
 
+router.get('/categories/:page',   Category.categories)
+
 module.exports = router;

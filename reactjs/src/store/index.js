@@ -13,7 +13,7 @@ const Store =  configureStore({
         "globalReducer": globalReducer,
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authService.middleware, categoryService.middleware), 
+    getDefaultMiddleware().concat([authService.middleware, categoryService.middleware]), 
 });
 setupListeners(Store.dispatch);
 export default Store;
