@@ -39,26 +39,27 @@ class Category {
         const count = await CategorieModel.find({}).countDocuments();
         const response = await CategorieModel.find({}).skip(skip).limit(perPage).sort({updatedAt: -1});
 
-        return res.status(200).json({"categories": {'categories': response, perPage, count}})
+        // return res.status(200).json({"categories": {'categories': response, perPage, count}})
         
-        // if (endIndex < count) {
-        //     results.next = {
-        //         page: +(page) + 1 ,
-        //         limit: perPage
-        //     };
-        // }
+        if (endIndex < count) {
+            results.next = {
+                page: +(page) + 1 ,
+                limit: perPage
+            };
+        }
         
-        // if (skip > 0) {
-        //     results.previous = {
-        //         page: page - 1,
-        //         limit: perPage
-        //     };
-        // }
-        // results.totalPages = Math.ceil(count / perPage);
-        // results.totalDocuments = count;
-        // results.currentPage = page;
-        // results.documents = response;
-        // res.status(200).json(results);
+        if (skip > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: perPage
+            };
+        }
+        
+        results.totalPages = Math.ceil(count / perPage);
+        results.totalDocuments = count;
+        results.currentPage = page;
+        results.documents = response;
+        return res.status(200).json(results);
 
        } catch (error) {
         console.log(error.massage);
